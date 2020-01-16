@@ -9,11 +9,18 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@master
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: kenessajr/test-actions
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        dockerfile: Dockerfile-prod
 
-    - name: Executing remote  command
+    - name: Deploy image to digitalocean
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.DO_HOST }}
