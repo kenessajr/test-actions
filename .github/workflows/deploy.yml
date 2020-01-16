@@ -28,6 +28,6 @@ jobs:
         password: ${{ secrets.DO_PASSWORD }}
         port: ${{ secrets.DO_PORT }}
         script: |
-          docker rm kenessajr/test-actions
-          docker run -it -p -d 80:80 kenessajr/test-actions:latest
+          docker stop $(docker ps -a -q)
+          docker run -dit -p 80:80 kenessajr/test-actions:latest
     
